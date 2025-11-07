@@ -14,4 +14,7 @@ This project implements two classic algorithm problems using **Divide and Conque
 Each algorithm demonstrates the efficiency trade-offs of its respective design strategy.
 
 ---
-
+## 🏗️ Directory Structure
+1. skyline.cpp
+2. activity_selection.cpp
+3. README.md
