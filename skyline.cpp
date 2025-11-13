@@ -32,7 +32,8 @@ static std::pair<List, int> visible_left_dc(const std::vector<int>& h, int lo, i
         int idx = Rlist[i];
         if (h[idx] > Lmax) filtered_right.push_back(idx);
     }
-  // merge (append)
+
+    // merge (append)
     List merged;
     merged.reserve(Llist.size() + filtered_right.size());
     for (size_t i = 0; i < Llist.size(); ++i) merged.push_back(Llist[i]);
@@ -67,38 +68,69 @@ static std::vector<int> parse_heights(const std::string& s) {
     bool innum = false, neg = false;
     for (size_t i = 0; i < s.size(); ++i) {
         unsigned char uc = static_cast<unsigned char>(s[i]);
-        if (s[i] == '-' && !innum) { neg = true; innum = true; num = 0; }
-        else if (std::isdigit(uc)) {
-            if (!innum) { innum = true; num = 0; neg = false; }
+        if (s[i] == '-' && !innum) {
+            neg = true;
+            innum = true;
+            num = 0;
+        } else if (std::isdigit(uc)) {
+            if (!innum) {
+                innum = true;
+                num = 0;
+                neg = false;
+            }
             num = num * 10 + (s[i] - '0');
         } else {
-            if (innum) { a.push_back(neg ? static_cast<int>(-num) : static_cast<int>(num)); innum = false; neg = false; }
+            if (innum) {
+                a.push_back(neg ? static_cast<int>(-num) : static_cast<int>(num));
+                innum = false;
+                neg = false;
+            }
         }
     }
     if (innum) a.push_back(neg ? static_cast<int>(-num) : static_cast<int>(num));
     return a;
 }
 
-int main(int argc, char** argv) {
+int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    std::string heights = "3,7,8,3,6,1";
-    for (int i = 1; i < argc; ++i) {
-        std::string arg = argv[i];
-        if (arg == "--heights" && i + 1 < argc) heights = argv[++i];
+    std::string heights;
+
+    std::cout << "Enter building heights (separated by spaces or commas):\n";
+    std::getline(std::cin, heights);
+
+    if (heights.empty()) {
+        std::cerr << "No heights entered. Exiting.\n";
+        return 1;
     }
 
     std::vector<int> h = parse_heights(heights);
+
+    if (h.empty()) {
+        std::cerr << "Could not parse any heights from input. Exiting.\n";
+        return 1;
+    }
+
     List L = visible_from_left(h);
     List R = visible_from_right(h);
 
     std::cout << "Input heights: ";
-    for (size_t i = 0; i < h.size(); ++i) { if (i) std::cout << ' '; std::cout << h[i]; }
+    for (size_t i = 0; i < h.size(); ++i) {
+        if (i) std::cout << ' ';
+        std::cout << h[i];
+    }
     std::cout << "\nVisible from left (indices): ";
-    for (size_t i = 0; i < L.size(); ++i) { if (i) std::cout << ' '; std::cout << L[i]; }
+    for (size_t i = 0; i < L.size(); ++i) {
+        if (i) std::cout << ' ';
+        std::cout << L[i];
+    }
     std::cout << "\nVisible from right (indices): ";
-    for (size_t i = 0; i < R.size(); ++i) { if (i) std::cout << ' '; std::cout << R[i]; }
+    for (size_t i = 0; i < R.size(); ++i) {
+        if (i) std::cout << ' ';
+        std::cout << R[i];
+    }
     std::cout << "\n";
+
     return 0;
 }
