@@ -2,12 +2,6 @@
 // Algorithm 2: Activity Selection Problem
 // Author: Joshua Zamora
 // Email: JoshuaMZamora@csu.fullerton.edu
-// activity_selection.cpp
-// Greedy Activity Selection with a hand-written stable insertion sort by finish time.
-// No <algorithm> used.
-//
-// Build: g++ -std=c++17 -O2 -o activity_selection activity_selection.cpp
-// Run:   ./activity_selection --activities "[(1,3),(2,5),(4,6),(6,7),(5,9),(8,9)]"
 
 #include <cctype>
 #include <iostream>
