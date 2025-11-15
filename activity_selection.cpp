@@ -11,12 +11,12 @@
 
 using Activity = std::pair<int, int>; // (start, finish)
 
-// Stable insertion sort by (finish asc, then start asc)
+// Stable insertion sort 
 static void insertion_sort_by_finish(std::vector<Activity>& a) {
     for (size_t i = 1; i < a.size(); ++i) {
         Activity key = a[i];
         size_t j = i;
-        // while a[j-1] > key (by finish, then start)
+        // while a[j-1] > key 
         while (j > 0) {
             bool greater = false;
             if (a[j - 1].second > key.second) greater = true;
